@@ -6,4 +6,11 @@ compatibility_date = "2024-01-29"
 bucket = "./dist"
 
 [build]
+command = "npm install && npm run build"
+dist = "dist"
+
+[site]
+bucket = "./dist"
+
+[build]
 command = "npm install && npm run build" 
