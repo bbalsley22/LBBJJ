@@ -91,13 +91,15 @@ export const HeroSection = () => {
           </div>
         </div>
       </div>
-      <div id="membership-section">
+      <div id="membership-section" className="pt-40">
         <MembershipSection onSubscribe={handleSubscribe} />
       </div>
-      <div id="schedule-section">
+      <div id="schedule-section" className="pt-40">
         <ScheduleSection />
       </div>
-      <MapSection />
+      <div className="pt-40">
+        <MapSection />
+      </div>
 
       {/* Authentication Required Dialog */}
       <Dialog open={isAuthDialogOpen} onOpenChange={setIsAuthDialogOpen}>

@@ -1,8 +1,4 @@
 export const MapSection = () => {
-  const handleMapClick = () => {
-    window.open('https://maps.google.com/?q=5000+Valley+West+Blvd+Suite+8,+Arcata,+CA+95521', '_blank');
-  };
-
   return (
     <section className="py-20 bg-black">
       <div className="container mx-auto px-4">
@@ -20,15 +16,19 @@ export const MapSection = () => {
               <p className="text-xl">707-388-3111</p>
             </div>
           </div>
-          <div 
-            className="w-full h-[400px] rounded-lg overflow-hidden cursor-pointer bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url('https://maps.googleapis.com/maps/api/staticmap?center=5000+Valley+West+Blvd,+Arcata,+CA+95521&zoom=15&size=800x400&scale=2&markers=color:red%7C5000+Valley+West+Blvd,+Arcata,+CA+95521&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8')`
-            }}
-            onClick={handleMapClick}
-            role="button"
-            aria-label="Open in Google Maps"
-          />
+          <div className="w-full h-[400px] rounded-lg overflow-hidden">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.6!2d-124.0891!3d40.8745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54d1570e327d2c3b%3A0x6c2e4b5f2f6a8c0a!2s5000%20Valley%20West%20Blvd%2C%20Arcata%2C%20CA%2095521!5e0!3m2!1sen!2sus!4v1710901234567!5m2!1sen!2sus"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Lost Boys BJJ Location"
+              className="rounded-lg"
+            />
+          </div>
         </div>
       </div>
     </section>
