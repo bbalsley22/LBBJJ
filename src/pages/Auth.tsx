@@ -76,12 +76,14 @@ export default function Auth() {
 
   const handleGoogleSignIn = async () => {
     try {
+      const redirectTo = isCheckout && priceId 
+        ? `${window.location.origin}/LBBJJ/#/auth?checkout=true&priceId=${priceId}`
+        : `${window.location.origin}/LBBJJ/#/`;
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: isCheckout && priceId 
-            ? `${window.location.origin}/auth?checkout=true&priceId=${priceId}`
-            : undefined
+          redirectTo
         }
       });
       if (error) throw error;
