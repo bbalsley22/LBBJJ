@@ -6,11 +6,13 @@ import { componentTagger } from "lovable-tagger";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   base: '/LBBJJ/',
+  publicDir: 'public',
   build: {
     outDir: 'docs',
     emptyOutDir: true,
     sourcemap: true,
     copyPublicDir: true,
+    assetsDir: 'assets',
     rollupOptions: {
       output: {
         manualChunks: undefined,
@@ -18,7 +20,8 @@ export default defineConfig(({ mode }) => ({
           if (!assetInfo.name) return 'assets/[name]-[hash][extname]';
           const extType = assetInfo.name.split('.')[1] || '';
           if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
-            return `[name][extname]`;
+            const dirname = path.dirname(assetInfo.name);
+            return dirname === '.' ? `[name][extname]` : `${dirname}/[name][extname]`;
           }
           return `assets/[name]-[hash][extname]`;
         },
