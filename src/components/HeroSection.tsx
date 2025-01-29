@@ -66,7 +66,7 @@ export const HeroSection = () => {
               onClick={handleLogoClick}
             >
               <img 
-                src="/lovable-uploads/aaec84e9-ec37-427c-b25d-3ead642e4096.png" 
+                src="/LBBJJ/lovable-uploads/aaec84e9-ec37-427c-b25d-3ead642e4096.png" 
                 alt="Lost Boys Brazilian Jiu Jitsu"
                 className="w-full h-auto brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
               />
