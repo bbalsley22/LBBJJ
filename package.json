@@ -4,12 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "engines": {
-    "node": ">=18.17.1"
+    "node": ">=18.17.1",
+    "npm": ">=9.6.7"
   },
+  "packageManager": "npm@9.6.7",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:cloudflare": "npm install && vite build",
+    "build:cloudflare": "bash ./build.sh",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview"
