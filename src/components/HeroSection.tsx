@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { MainNav } from "./NavigationMenu";
 import { MembershipSection } from "./MembershipSection";
 import { MapSection } from "./MapSection";
+import { ScheduleSection } from "./ScheduleSection";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -92,6 +93,9 @@ export const HeroSection = () => {
       </div>
       <div id="membership-section">
         <MembershipSection onSubscribe={handleSubscribe} />
+      </div>
+      <div id="schedule-section">
+        <ScheduleSection />
       </div>
       <MapSection />
 
