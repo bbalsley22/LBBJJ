@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { HeroSection } from "./components/HeroSection";
 import Auth from "./pages/Auth";
 import ManageSubscription from "./pages/ManageSubscription";
