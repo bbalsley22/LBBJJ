@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => ({
     outDir: 'docs',
     emptyOutDir: true,
     sourcemap: true,
+    copyPublicDir: true,
     rollupOptions: {
       output: {
         manualChunks: undefined,
@@ -17,7 +18,7 @@ export default defineConfig(({ mode }) => ({
           if (!assetInfo.name) return 'assets/[name]-[hash][extname]';
           const extType = assetInfo.name.split('.')[1] || '';
           if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
-            return `assets/images/[name]-[hash][extname]`;
+            return `[name][extname]`;
           }
           return `assets/[name]-[hash][extname]`;
         },
