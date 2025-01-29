@@ -3,14 +3,24 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { MembershipSection } from "@/components/MembershipSection";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { User } from "@supabase/supabase-js";
 import { MainNav } from "@/components/NavigationMenu";
 
+interface SubscriptionDetails {
+  subscribed: boolean;
+  membershipType: string | null;
+  nextBillingDate: string | null;
+  cancelAtPeriodEnd: boolean;
+}
+
 export default function ManageSubscription() {
   const [user, setUser] = useState<User | null>(null);
-  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
+  const [subscriptionDetails, setSubscriptionDetails] = useState<SubscriptionDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isCancelling, setIsCancelling] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,17 +38,10 @@ export default function ManageSubscription() {
       if (!user) return;
       
       try {
-        const response = await fetch('/api/is-subscribed', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`
-          }
-        });
+        const { data, error } = await supabase.functions.invoke<SubscriptionDetails>('is-subscribed');
         
-        if (!response.ok) throw new Error('Failed to fetch subscription status');
-        
-        const data = await response.json();
-        setIsSubscribed(data.subscribed);
+        if (error) throw error;
+        setSubscriptionDetails(data);
       } catch (error) {
         console.error('Error checking subscription:', error);
         toast.error('Failed to check subscription status');
@@ -57,17 +60,12 @@ export default function ManageSubscription() {
 
     setIsCancelling(true);
     try {
-      const response = await fetch('/api/cancel-subscription', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`
-        }
-      });
+      const { error } = await supabase.functions.invoke('cancel-subscription');
 
-      if (!response.ok) throw new Error('Failed to cancel subscription');
+      if (error) throw error;
 
       toast.success('Your subscription has been cancelled. You will continue to have access until the end of your billing period.');
-      setSubscriptionDetails(prev => prev ? { ...prev, subscribed: false } : null);
+      setSubscriptionDetails(prev => prev ? { ...prev, cancelAtPeriodEnd: true } : null);
     } catch (error) {
       console.error('Error cancelling subscription:', error);
       toast.error('Failed to cancel subscription');
@@ -123,6 +121,11 @@ export default function ManageSubscription() {
               <CardTitle>Active Subscription</CardTitle>
               <CardDescription>
                 You're currently subscribed to our {subscriptionDetails.membershipType || 'membership'} plan.
+                {subscriptionDetails.cancelAtPeriodEnd && (
+                  <span className="block mt-2 text-yellow-500">
+                    Your subscription will end at the end of the current billing period.
+                  </span>
+                )}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -136,21 +139,23 @@ export default function ManageSubscription() {
                   Your membership gives you access to all our facilities and classes. 
                   Thank you for being a valued member of Lost Boys BJJ!
                 </p>
-                <Button 
-                  onClick={handleCancelSubscription}
-                  variant="destructive"
-                  disabled={isCancelling}
-                  className="w-fit"
-                >
-                  {isCancelling ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Cancelling...
-                    </>
-                  ) : (
-                    'Cancel Subscription'
-                  )}
-                </Button>
+                {!subscriptionDetails.cancelAtPeriodEnd && (
+                  <Button 
+                    onClick={handleCancelSubscription}
+                    variant="destructive"
+                    disabled={isCancelling}
+                    className="w-fit"
+                  >
+                    {isCancelling ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Cancelling...
+                      </>
+                    ) : (
+                      'Cancel Subscription'
+                    )}
+                  </Button>
+                )}
               </div>
             </CardContent>
           </Card>

@@ -28,14 +28,18 @@ export default function Auth() {
 
       if (error) {
         toast.error('Failed to create checkout session');
+        navigate('/');
         return;
       }
 
       if (data?.url) {
         window.location.href = data.url;
+      } else {
+        toast.error('No checkout URL received');
+        navigate('/');
       }
     } else {
-      navigate("/");
+      navigate('/');
     }
   };
 
@@ -67,6 +71,7 @@ export default function Auth() {
       if (error) throw error;
       toast.success("Check your email for the confirmation link!");
       // Note: We don't redirect to checkout here because the user needs to verify their email first
+      navigate('/');
     } catch (error: any) {
       toast.error(error.message);
     } finally {
