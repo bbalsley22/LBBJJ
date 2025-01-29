@@ -1,0 +1,11 @@
+[build]
+command = "npm install && npm run build"
+output_directory = "dist"
+base_directory = "/"
+
+[build.environment]
+NODE_VERSION = "18.17.1"
+NPM_FLAGS = "--legacy-peer-deps"
+
+[site]
+bucket = "./dist" 
