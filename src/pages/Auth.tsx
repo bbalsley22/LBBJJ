@@ -56,6 +56,7 @@ export default function Auth() {
       await handleSuccessfulAuth(false);
     } catch (error: any) {
       toast.error(error.message);
+      navigate('/');
     } finally {
       setLoading(false);
     }
@@ -75,6 +76,7 @@ export default function Auth() {
       navigate('/');
     } catch (error: any) {
       toast.error(error.message);
+      navigate('/');
     } finally {
       setLoading(false);
     }
@@ -96,9 +98,12 @@ export default function Auth() {
           }
         }
       });
-      if (error) throw error;
+      if (error) {
+        throw error;
+      }
     } catch (error: any) {
       toast.error(error.message);
+      navigate('/');
     }
   };
 

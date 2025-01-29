@@ -55,6 +55,7 @@ export const MembershipCard = ({
       await onSubscribe(priceId);
     } catch (error) {
       console.error('Subscription error:', error);
+      navigate('/');
     } finally {
       setIsLoading(false);
     }
