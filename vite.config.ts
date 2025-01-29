@@ -7,7 +7,14 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => ({
   base: '/LBBJJ/',
   build: {
-    outDir: 'docs', // Build to the docs directory for GitHub Pages
+    outDir: 'docs',
+    assetsDir: 'assets',
+    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
   },
   server: {
     host: "::",
