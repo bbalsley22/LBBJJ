@@ -1,0 +1,9 @@
+[build]
+command = "npm install && npm run build"
+publish = "dist"
+
+[build.environment]
+NODE_VERSION = "18.17.1"
+
+[site]
+bucket = "./dist" 
