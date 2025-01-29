@@ -57,7 +57,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <div>
+    <div className="bg-black">
       <div className="relative h-screen">
         <MainNav />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/30">
