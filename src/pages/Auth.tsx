@@ -19,9 +19,9 @@ export default function Auth() {
   const isCheckout = searchParams.get('checkout') === 'true';
   const priceId = searchParams.get('priceId');
 
-  const handleSuccessfulAuth = async () => {
-    if (isCheckout && priceId) {
-      // Redirect to checkout with the stored priceId
+  const handleSuccessfulAuth = async (isNewAccount: boolean = false) => {
+    if (isNewAccount && isCheckout && priceId) {
+      // Only redirect to checkout for new accounts during checkout flow
       const { data, error } = await supabase.functions.invoke<{ url: string }>('create-checkout', {
         body: { priceId }
       });
@@ -39,6 +39,7 @@ export default function Auth() {
         navigate('/');
       }
     } else {
+      // Always redirect to home for regular sign-ins
       navigate('/');
     }
   };
@@ -52,7 +53,7 @@ export default function Auth() {
         password,
       });
       if (error) throw error;
-      await handleSuccessfulAuth();
+      await handleSuccessfulAuth(false);
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -82,7 +83,7 @@ export default function Auth() {
   const handleGoogleSignIn = async () => {
     try {
       const redirectTo = isCheckout && priceId 
-        ? `${window.location.origin}/LBBJJ/#/auth?checkout=true&priceId=${priceId}`
+        ? `${window.location.origin}/LBBJJ/#/auth?checkout=true&priceId=${priceId}&newAccount=true`
         : `${window.location.origin}/LBBJJ/#/`;
 
       const { error } = await supabase.auth.signInWithOAuth({
@@ -101,7 +102,8 @@ export default function Auth() {
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN' && session) {
-        await handleSuccessfulAuth();
+        const isNewAccount = searchParams.get('newAccount') === 'true';
+        await handleSuccessfulAuth(isNewAccount);
       }
     });
 
