@@ -7,7 +7,7 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => ({
   publicDir: 'public',
   build: {
-    outDir: 'dist',
+    outDir: 'docs',
     emptyOutDir: true,
     sourcemap: true,
     copyPublicDir: true,
@@ -36,11 +36,7 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     historyApiFallback: true,
   },
-  plugins: [
-    react(),
-    mode === 'development' &&
-    componentTagger(),
-  ].filter(Boolean),
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
