@@ -10,9 +10,9 @@ try {
   console.log('Installing dependencies with npm...');
   execSync('npm install --legacy-peer-deps --ignore-engines', { stdio: 'inherit' });
 
-  // Run build
+  // Run build directly with vite
   console.log('Building project...');
-  execSync('npm run build', { stdio: 'inherit' });
+  execSync('npx vite build', { stdio: 'inherit' });
 } catch (error) {
   console.error('Build failed:', error);
   process.exit(1);
