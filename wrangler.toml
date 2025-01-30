@@ -4,11 +4,13 @@ pages_build_output_dir = "./dist"
 compatibility_date = "2024-01-29"
 
 [build]
-command = "npm install && npm run build"
+command = "node build.mjs"
+output_dir = "dist"
 
 [build.environment]
 NODE_VERSION = "18.17.1"
 NPM_VERSION = "9.6.7"
-CI = "true"
-NPM_FLAGS = "--legacy-peer-deps"
-PACKAGE_MANAGER = "npm" 
+PACKAGE_MANAGER = "npm"
+
+[pages_build_output_dir]
+value = "dist" 
