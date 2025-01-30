@@ -24,7 +24,7 @@ export function MainNav() {
             onClick={() => navigate('/')}
           >
             <img 
-              src="/LBBJJ/image.png" 
+              src="/image.png" 
               alt="Lost Boys Brazilian Jiu Jitsu"
               className="w-full h-auto"
             />
