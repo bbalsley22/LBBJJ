@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { HeroSection } from "./components/HeroSection";
 import Auth from "@/pages/Auth";
 import ManageSubscription from "@/pages/ManageSubscription";
@@ -11,15 +11,13 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<HeroSection />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/manage-subscription" element={<ManageSubscription />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-        <Toaster />
-      </Router>
+      <Routes>
+        <Route path="/" element={<HeroSection />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/manage-subscription" element={<ManageSubscription />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+      <Toaster />
     </QueryClientProvider>
   );
 }
