@@ -1,0 +1,19 @@
+{
+  "buildCommand": "npm install && npm run build",
+  "outputDirectory": "dist",
+  "nodeVersion": "18.17.1",
+  "packageManager": "npm",
+  "routes": [
+    {
+      "src": "/*",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "NODE_VERSION": "18.17.1",
+    "NPM_VERSION": "9.6.7",
+    "CI": "true",
+    "NPM_FLAGS": "--legacy-peer-deps",
+    "NODE_BUNDLER": "npm"
+  }
+} 
