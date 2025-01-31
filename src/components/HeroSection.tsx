@@ -63,7 +63,7 @@ export const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/30">
           <div className="container mx-auto px-4 h-full flex flex-col justify-center items-center text-center">
             <div 
-              className="w-full max-w-[600px] mb-8 cursor-pointer"
+              className="w-full max-w-[800px] mb-12 cursor-pointer"
               onClick={handleLogoClick}
             >
               <img 
@@ -76,7 +76,7 @@ export const HeroSection = () => {
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
                 <Button 
-                  className="bg-[#ea384c] hover:bg-[#ea384c]/90 text-white px-8 py-6 text-lg"
+                  className="bg-[#ea384c] hover:bg-[#ea384c]/90 text-white px-10 py-8 text-xl mt-8"
                 >
                   Claim Your Free Class Today
                 </Button>
@@ -85,7 +85,7 @@ export const HeroSection = () => {
                 <DialogHeader>
                   <DialogTitle>Get Your Free Class</DialogTitle>
                 </DialogHeader>
-                  <FreeClassForm />
+                  <FreeClassForm onSuccess={() => setIsDialogOpen(false)} />
               </DialogContent>
             </Dialog>
           </div>
